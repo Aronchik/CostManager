@@ -16,11 +16,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
-        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/jquery.jqgrid.src.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/grid.formedit.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/grid.inlinedit.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/grid.celledit.js")" type="text/javascript"></script>
         <script>
-                $(function () {
-                    "use strict";
+                $(document).ready(function () {
                     $("#grid").jqGrid({
                         colModel: [
                             { name: "expenseDate", label: "Date", align: "center", sorttype: "date",
@@ -39,30 +43,19 @@
                         idPrefix: "e1_",
                         sortname: "expenseDate",
                         sortorder: "desc",
-                        pager: "#gridPager",
-                        rowNum: 10
-                    });//.jqGrid("filterToolbar");
+                        loadonce: true
+                    });
+
+                    $("#addBtn").on( "click", function() {
+                        jQuery("#grid").jqGrid('editGridRow', "new", {height:280,reloadAfterSubmit:false} );
+                    });
                 });
-
-                $("#grid").jqGrid('navGrid', '#gridPager',
-                        {
-                            add: true,
-                            edit: true,
-                            del: true
-                        },
-                    {},
-                    {},
-                    {});
-
-
-                //var exampleRow = {expenseDate:"01.10.2007", expense:"MP4 Player", amount:"400", paymentType:"Cash", category: "Electronics"};
-                //alert("new row with rowid=" + exampleRow + " are added.");
-                //jQuery("#grid").addRowData( 60, exampleRow, "last");
         </script>
     </head>
     <body>
         @* And here's where we render the `Html` object containing
          * the page content. *@
         <table id="grid"></table>
+        <button id="addBtn" type="button">Add Expense</button>
     </body>
 </html>
