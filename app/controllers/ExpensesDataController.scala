@@ -20,11 +20,11 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
   def expenseData: JsValue = {
     Json.parse("""
     [
-        { "id": 10, "expenseDate": "12.02.2010", "expense": "Coffee" , "amount": "4.22", "paymentType": "Cash", "category": "Food" },
-        { "id": 20, "expenseDate": "12.02.2015", "expense": "Bagel" , "amount": "7.99", "paymentType": "Cash", "category": "Food" },
-        { "id": 30, "expenseDate": "12.02.2011", "expense": "New Car" , "amount": "40800", "paymentType": "Bank Transfer", "category": "Transport" },
-        { "id": 40, "expenseDate": "12.03.2011", "expense": "New Tires" , "amount": "2500", "paymentType": "Credit Card", "category": "Transport" },
-        { "id": 50, "expenseDate": "12.02.2012", "expense": "Overseas Trip" , "amount": "8000", "paymentType": "Credit Card", "category": "Travel" }
+        { "id": 10, "expenseDate": "12.02.2010", "expense": "Coffee" , "amount": "4.22", "paymentType": "Cash", "category": "Food", "currency": "NIS" },
+        { "id": 20, "expenseDate": "12.02.2015", "expense": "Bagel" , "amount": "7.99", "paymentType": "Cash", "category": "Food" , "currency": "NIS" },
+        { "id": 30, "expenseDate": "12.02.2011", "expense": "New Car" , "amount": "40800", "paymentType": "Bank Transfer", "category": "Transport" , "currency": "NIS" },
+        { "id": 40, "expenseDate": "12.03.2011", "expense": "New Tires" , "amount": "2500", "paymentType": "Credit Card", "category": "Transport" , "currency": "NIS" },
+        { "id": 50, "expenseDate": "12.02.2012", "expense": "Overseas Trip" , "amount": "8000", "paymentType": "Credit Card", "category": "Travel" , "currency": "NIS" }
     ]
   """)
   }
