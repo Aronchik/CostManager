@@ -1,97 +1,71 @@
 /**
- * @license jqGrid Polish Translation
+ * jqGrid Polish Translation
  * Łukasz Schab lukasz@freetree.pl
  * http://FreeTree.pl
  *
- * Updated names, abbreviations, currency and date/time formats for Polish norms (also corresponding with CLDR v21.0.1 --> http://cldr.unicode.org/index)
+ * Updated names, abbreviations, currency and date/time formats for Polish norms (also corresponding with CLDR v21.0.1 --> http://cldr.unicode.org/index) 
  * Tomasz Pęczek tpeczek@gmail.com
  * http://tpeczek.blogspot.com; http://tpeczek.codeplex.com
- *
- * 22-01-2015: Updated locale strings
- * Robert 'Wooya' Gaudyn <wogaew@wp.pl>
  *
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
 **/
-
-/*jslint white: true */
-/*global jQuery, module, require */
-(function (factory) {
+/*global jQuery, define */
+(function( factory ) {
 	"use strict";
-	if (typeof define === "function" && define.amd) {
+	if ( typeof define === "function" && define.amd ) {
 		// AMD. Register as an anonymous module.
-		define(["jquery"], factory);
-	} else if (typeof module === "object" && module.exports) {
-		// Node/CommonJS
-		module.exports = function (root, $) {
-			if ($ === undefined) {
-				// require("jquery") returns a factory that requires window to
-				// build a jQuery instance, we normalize how we use modules
-				// that require this pattern but the window provided is a noop
-				// if it's defined (how jquery works)
-				$ = typeof window !== "undefined" ?
-						require("jquery") :
-						require("jquery")(root || window);
-			}
-			factory($);
-			return $;
-		};
+		define([
+			"jquery",
+			"../grid.base"
+		], factory );
 	} else {
 		// Browser globals
-		factory(jQuery);
+		factory( jQuery );
 	}
-}(function ($) {
-"use strict";
-var locInfo = {
-	isRTL: false,
-	defaults: {
+}(function( $ ) {
+
+$.jgrid = $.jgrid || {};
+if(!$.jgrid.hasOwnProperty("regional")) {
+	$.jgrid.regional = [];
+}
+$.jgrid.regional["pl"] = {
+	defaults : {
 		recordtext: "Pokaż {0} - {1} z {2}",
 		emptyrecords: "Brak rekordów do pokazania",
 		loadtext: "Ładowanie...",
-		pgtext: "Strona {0} z {1}",
-		pgfirst: "Pierwsza strona",
-		pglast: "Ostatnia strona",
-		pgnext: "Następna strona",
-		pgprev: "Poprzednia strona",
-		pgrecs: "Rekordów na stronę",
-		showhide: "Przełącz zwinięcie/rozwinięcie tabeli",
-		savetext: "Trwa zapisywanie..."
+		pgtext : "Strona {0} z {1}",
+		savetext: "Saving...",
+		pgfirst : "First Page",
+		pglast : "Last Page",
+		pgnext : "Next Page",
+		pgprev : "Previous Page",
+		pgrecs : "Records per Page",
+		showhide: "Toggle Expand Collapse Grid",
+		// mobile
+		pagerCaption : "Grid::Page Settings",
+		pageText : "Page:",
+		recordPage : "Records per Page",
+		nomorerecs : "No more records...",
+		scrollPullup: "Pull up to load more...",
+		scrollPulldown : "Pull down to refresh...",
+		scrollRefresh : "Release to refresh..."
 	},
-	search: {
+	search : {
 		caption: "Wyszukiwanie...",
 		Find: "Szukaj",
 		Reset: "Czyść",
-		odata: [
-			{ oper: "eq", text: "dokładnie" },
-			{ oper: "ne", text: "różne od" },
-			{ oper: "lt", text: "mniejsze od" },
-			{ oper: "le", text: "mniejsze lub równe" },
-			{ oper: "gt", text: "większe od" },
-			{ oper: "ge", text: "większe lub równe" },
-			{ oper: "bw", text: "zaczyna się od" },
-			{ oper: "bn", text: "nie zaczyna się od" },
-			{ oper: "in", text: "jest w" },
-			{ oper: "ni", text: "nie jest w" },
-			{ oper: "ew", text: "kończy się na" },
-			{ oper: "en", text: "nie kończy się na" },
-			{ oper: "cn", text: "zawiera" },
-			{ oper: "nc", text: "nie zawiera" },
-			{ oper: "nu", text: "jest null" },
-			{ oper: "nn", text: "nie jest null" }
-		],
-		groupOps: [
-			{ op: "AND", text: "oraz" },
-			{ op: "OR",  text: "lub" }
-		],
-		addGroupTitle: "Dodaj podgrupę",
-		deleteGroupTitle: "Usuń grupę",
-		addRuleTitle: "Dodaj regułę",
-		deleteRuleTitle: "Usuń regułę",
-		operandTitle: "Kliknij, aby wybrać operację wyszukiwania.",
-		resetTitle: "Zresetuj wartość wyszukiwania"
+		odata: [{ oper:'eq', text:"dokładnie"},{ oper:'ne', text:"różne od"},{ oper:'lt', text:"mniejsze od"},{ oper:'le', text:"mniejsze lub równe"},{ oper:'gt', text:"większe od"},{ oper:'ge', text:"większe lub równe"},{ oper:'bw', text:"zaczyna się od"},{ oper:'bn', text:"nie zaczyna się od"},{ oper:'in', text:"jest w"},{ oper:'ni', text:"nie jest w"},{ oper:'ew', text:"kończy się na"},{ oper:'en', text:"nie kończy się na"},{ oper:'cn', text:"zawiera"},{ oper:'nc', text:"nie zawiera"},{ oper:'nu', text:'is null'},{ oper:'nn', text:'is not null'}, {oper:'bt', text:'between'}],
+		groupOps: [	{ op: "AND", text: "oraz" },	{ op: "OR",  text: "lub" }	],
+		operandTitle : "Click to select search operation.",
+		resetTitle : "Reset Search Value",
+		addsubgrup : "Add subgroup",
+		addrule : "Add rule",
+		delgroup : "Delete group",
+		delrule : "Delete rule"
 	},
-	edit: {
+	edit : {
 		addCaption: "Dodaj rekord",
 		editCaption: "Edytuj rekord",
 		bSubmit: "Zapisz",
@@ -104,8 +78,8 @@ var locInfo = {
 		msg: {
 			required: "Pole jest wymagane",
 			number: "Proszę wpisać poprawną liczbę",
-			minValue: "Wartość musi być większa lub równa od",
-			maxValue: "Wartość musi być mniejsza lub równa od",
+			minValue: "wartość musi być większa lub równa od",
+			maxValue: "wartość musi być mniejsza lub równa od",
 			email: "nie jest poprawnym adresem e-mail",
 			integer: "Proszę wpisać poprawną liczbę",
 			date: "Proszę podaj poprawną datę",
@@ -116,17 +90,17 @@ var locInfo = {
 			customfcheck: "Funkcja niestandardowa powinna być obecna w przypadku niestandardowego sprawdzania!"
 		}
 	},
-	view: {
+	view : {
 		caption: "Pokaż rekord",
 		bClose: "Zamknij"
 	},
-	del: {
+	del : {
 		caption: "Usuń",
 		msg: "Czy usunąć wybrany rekord(y)?",
 		bSubmit: "Usuń",
 		bCancel: "Anuluj"
 	},
-	nav: {
+	nav : {
 		edittext: "",
 		edittitle: "Edytuj wybrany wiersz",
 		addtext: "",
@@ -142,26 +116,27 @@ var locInfo = {
 		viewtext: "",
 		viewtitle: "Pokaż wybrany wiersz",
 		savetext: "",
-		savetitle: "Zapisz wiersz",
+		savetitle: "Save row",
 		canceltext: "",
-		canceltitle: "Anuluj edycję wiersza"
+		canceltitle : "Cancel row editing",
+		selectcaption : "Actions..."
 	},
-	col: {
+	col : {
 		caption: "Pokaż/Ukryj kolumny",
 		bSubmit: "Zatwierdź",
 		bCancel: "Anuluj"
 	},
-	errors: {
+	errors : {
 		errcap: "Błąd",
 		nourl: "Brak adresu url",
 		norecords: "Brak danych",
-		model: "Długość colNames <> colModel!"
+		model : "Długość colNames <> colModel!"
 	},
-	formatter: {
-		integer: { thousandsSeparator: " ", defaultValue: "0" },
-		number: { decimalSeparator: ",", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: "0,00" },
-		currency: { decimalSeparator: ",", thousandsSeparator: " ", decimalPlaces: 2, prefix: "", suffix: " zł", defaultValue: "0,00" },
-		date: {
+	formatter : {
+		integer : {thousandsSeparator: " ", defaultValue: '0'},
+		number : {decimalSeparator:",", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0,00'},
+		currency : {decimalSeparator:",", thousandsSeparator: " ", decimalPlaces: 2, prefix: "", suffix:" zł", defaultValue: '0,00'},
+		date : {
 			dayNames:   [
 				"niedz.", "pon.", "wt.", "śr.", "czw.", "pt.", "sob.",
 				"niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"
@@ -170,35 +145,44 @@ var locInfo = {
 				"sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru",
 				"styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"
 				],
-			AmPm: ["", "", "", ""],
-			S: function () { return ""; },
-			srcformat: "Y-m-d",
-			newformat: "d.m.Y",
-			masks: {
+			AmPm : ["","","",""],
+			S: function (j) {return '';},
+			srcformat: 'Y-m-d',
+			newformat: 'd.m.Y',
+			parseRe : /[#%\\\/:_;.,\t\s-]/,
+			masks : {
+				ISO8601Long: "Y-m-d H:i:s",
+				ISO8601Short: "Y-m-d",
 				ShortDate: "d.m.y",
 				LongDate: "l, j F Y",
 				FullDateTime: "l, j F Y H:i:s",
 				MonthDay: "j F",
 				ShortTime: "H:i",
 				LongTime: "H:i:s",
+				SortableDateTime: "Y-m-d\\TH:i:s",
+				UniversalSortableDateTime: "Y-m-d H:i:sO",
 				YearMonth: "F Y"
-			}
-		}
+			},
+			reformatAfterEdit : false,
+			userLocalTime : false
+		},
+		baseLinkUrl: '',
+		showAction: '',
+		target: '',
+		checkbox : {disabled:true},
+		idName : 'id'
+	},
+	colmenu : {
+		sortasc : "Sort Ascending",
+		sortdesc : "Sort Descending",
+		columns : "Columns",
+		filter : "Filter",
+		grouping : "Group By",
+		ungrouping : "Ungroup",
+		searchTitle : "Get items with value that:",
+		freeze : "Freeze",
+		unfreeze : "Unfreeze",
+		reorder : "Move to reorder"
 	}
 };
-$.jgrid = $.jgrid || {};
-$.extend(true, $.jgrid, {
-	defaults: {
-		locale: "pl"
-	},
-	locales: {
-		// In general the property name is free, but it's recommended to use the names based on
-		// http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
-		// http://rishida.net/utils/subtags/ and RFC 5646. See Appendix A of RFC 5646 for examples.
-		// One can use the lang attribute to specify language tags in HTML, and the xml:lang attribute for XML
-		// if it exists. See http://www.w3.org/International/articles/language-tags/#extlang
-		pl: $.extend({}, locInfo, { name: "polski", nameEnglish: "Polish" }),
-		"pl-PL": $.extend({}, locInfo, { name: "polski (Polska)", nameEnglish: "Polish (Poland)" })
-	}
-});
 }));

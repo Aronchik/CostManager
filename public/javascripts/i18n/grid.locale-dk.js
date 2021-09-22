@@ -1,7 +1,7 @@
 /**
- * jqGrid Greek (el) Translation
- * Alex Cicovic
- * http://www.alexcicovic.com
+ * jqGrid Danish Translation
+ * Kaare Rasmussen kjs@jasonic.dk
+ * http://jasonic.dk/blog 
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -25,11 +25,11 @@ $.jgrid = $.jgrid || {};
 if(!$.jgrid.hasOwnProperty("regional")) {
 	$.jgrid.regional = [];
 }
-$.jgrid.regional["el"] = {
+$.jgrid.regional["dk"] = {
 	defaults : {
 		recordtext: "View {0} - {1} of {2}",
 	    emptyrecords: "No records to view",
-		loadtext: "Φόρτωση...",
+		loadtext: "Loading...",
 		savetext: "Saving...",
 		pgtext : "Page {0} of {1}",
 		pgfirst : "First Page",
@@ -45,12 +45,12 @@ $.jgrid.regional["el"] = {
 		nomorerecs : "No more records...",
 		scrollPullup: "Pull up to load more...",
 		scrollPulldown : "Pull down to refresh...",
-		scrollRefresh : "Release to refresh..."		
+		scrollRefresh : "Release to refresh..."
 	},
 	search : {
-	    caption: "Αναζήτηση...",
-	    Find: "Εύρεση",
-	    Reset: "Επαναφορά",
+	    caption: "Søg...",
+	    Find: "Find",
+	    Reset: "Nulstil",
 	    odata: [{ oper:'eq', text:'equal'},{ oper:'ne', text:'not equal'},{ oper:'lt', text:'less'},{ oper:'le', text:'less or equal'},{ oper:'gt', text:'greater'},{ oper:'ge', text:'greater or equal'},{ oper:'bw', text:'begins with'},{ oper:'bn', text:'does not begin with'},{ oper:'in', text:'is in'},{ oper:'ni', text:'is not in'},{ oper:'ew', text:'ends with'},{ oper:'en', text:'does not end with'},{ oper:'cn', text:'contains'},{ oper:'nc', text:'does not contain'},{ oper:'nu', text:'is null'},{ oper:'nn', text:'is not null'}, {oper:'bt', text:'between'}],
 	    groupOps: [	{ op: "AND", text: "all" },	{ op: "OR",  text: "any" }	],
 		operandTitle : "Click to select search operation.",
@@ -61,22 +61,23 @@ $.jgrid.regional["el"] = {
 		delrule : "Delete rule"
 	},
 	edit : {
-	    addCaption: "Εισαγωγή Εγγραφής",
-	    editCaption: "Επεξεργασία Εγγραφής",
-	    bSubmit: "Καταχώρηση",
-	    bCancel: "Άκυρο",
-		bClose: "Κλείσιμο",
+	    addCaption: "Tilføj",
+	    editCaption: "Ret",
+	    bSubmit: "Send",
+	    bCancel: "Annuller",
+		bClose: "Luk",
 		saveData: "Data has been changed! Save changes?",
 		bYes : "Yes",
 		bNo : "No",
 		bExit : "Cancel",
 	    msg: {
-	        required:"Το πεδίο είναι απαραίτητο",
-	        number:"Το πεδίο δέχεται μόνο αριθμούς",
-	        minValue:"Η τιμή πρέπει να είναι μεγαλύτερη ή ίση του ",
-	        maxValue:"Η τιμή πρέπει να είναι μικρότερη ή ίση του ",
-	        email: "Η διεύθυνση e-mail δεν είναι έγκυρη",
-	        integer: "Το πεδίο δέχεται μόνο ακέραιους αριθμούς",
+	        required:"Felt er nødvendigt",
+	        number:"Indtast venligst et validt tal",
+	        minValue:"værdi skal være større end eller lig med",
+	        maxValue:"værdi skal være mindre end eller lig med",
+	        email: "er ikke en valid email",
+	        integer: "Indtast venligst et validt heltalt",
+			date: "Indtast venligst en valid datoværdi",
 			url: "is not a valid URL. Prefix required ('http://' or 'https://')",
 			nodefined : " is not defined!",
 			novalue : " return value is required!",
@@ -89,24 +90,24 @@ $.jgrid.regional["el"] = {
 	    bClose: "Close"
 	},
 	del : {
-	    caption: "Διαγραφή",
-	    msg: "Διαγραφή των επιλεγμένων εγγραφών;",
-	    bSubmit: "Ναι",
-	    bCancel: "Άκυρο"
+	    caption: "Slet",
+	    msg: "Slet valgte række(r)?",
+	    bSubmit: "Slet",
+	    bCancel: "Annuller"
 	},
 	nav : {
 		edittext: " ",
-	    edittitle: "Επεξεργασία επιλεγμένης εγγραφής",
+	    edittitle: "Rediger valgte række",
 		addtext:" ",
-	    addtitle: "Εισαγωγή νέας εγγραφής",
+	    addtitle: "Tilføj ny række",
 	    deltext: " ",
-	    deltitle: "Διαγραφή επιλεγμένης εγγραφής",
+	    deltitle: "Slet valgte række",
 	    searchtext: " ",
-	    searchtitle: "Εύρεση Εγγραφών",
+	    searchtitle: "Find poster",
 	    refreshtext: "",
-	    refreshtitle: "Ανανέωση Πίνακα",
-	    alertcap: "Προσοχή",
-	    alerttext: "Δεν έχετε επιλέξει εγγραφή",
+	    refreshtitle: "Indlæs igen",
+	    alertcap: "Advarsel",
+	    alerttext: "Vælg venligst række",
 		viewtext: "",
 		viewtitle: "View selected row",
 		savetext: "",
@@ -116,46 +117,46 @@ $.jgrid.regional["el"] = {
 		selectcaption : "Actions..."
 	},
 	col : {
-	    caption: "Εμφάνιση / Απόκρυψη Στηλών",
-	    bSubmit: "ΟΚ",
-	    bCancel: "Άκυρο"
+	    caption: "Vis/skjul kolonner",
+	    bSubmit: "Send",
+	    bCancel: "Annuller"
 	},
 	errors : {
-		errcap : "Σφάλμα",
-		nourl : "Δεν έχει δοθεί διεύθυνση χειρισμού για τη συγκεκριμένη ενέργεια",
-		norecords: "Δεν υπάρχουν εγγραφές προς επεξεργασία",
-		model : "Άνισος αριθμός πεδίων colNames/colModel!"
+		errcap : "Fejl",
+		nourl : "Ingel url valgt",
+		norecords: "Ingen poster at behandle",
+	    model : "colNames og colModel har ikke samme længde!"
 	},
 	formatter : {
 		integer : {thousandsSeparator: " ", defaultValue: '0'},
-		number : {decimalSeparator:".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00'},
-		currency : {decimalSeparator:".", thousandsSeparator: " ", decimalPlaces: 2, prefix: "", suffix:"", defaultValue: '0.00'},
+		number : {decimalSeparator:",", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0,00'},
+		currency : {decimalSeparator:",", thousandsSeparator: " ", decimalPlaces: 2, prefix: "", suffix:"", defaultValue: '0,00'},
 		date : {
 			dayNames:   [
-				"Κυρ", "Δευ", "Τρι", "Τετ", "Πεμ", "Παρ", "Σαβ",
-				"Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο"
+				"Søn", "Man", "Tirs", "Ons", "Tors", "Fre", "Lør",
+				"Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"
 			],
 			monthNames: [
-				"Ιαν", "Φεβ", "Μαρ", "Απρ", "Μαι", "Ιουν", "Ιουλ", "Αυγ", "Σεπ", "Οκτ", "Νοε", "Δεκ",
-				"Ιανουάριος", "Φεβρουάριος", "Μάρτιος", "Απρίλιος", "Μάιος", "Ιούνιος", "Ιούλιος", "Αύγουστος", "Σεπτέμβριος", "Οκτώβριος", "Νοέμβριος", "Δεκέμβριος"
+				"Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec",
+				"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"
 			],
-			AmPm : ["πμ","μμ","ΠΜ","ΜΜ"],
-			S: function (j) {return j == 1 || j > 1 ? ['η'][Math.min((j - 1) % 10, 3)] : ''},
+			AmPm : ["","","",""],
+			S: function (j) {return '.'},
 			srcformat: 'Y-m-d',
 			newformat: 'd/m/Y',
 			parseRe : /[#%\\\/:_;.,\t\s-]/,
 			masks : {
 	            ISO8601Long:"Y-m-d H:i:s",
 	            ISO8601Short:"Y-m-d",
-	            ShortDate: "n/j/Y",
-	            LongDate: "l, F d, Y",
-	            FullDateTime: "l, F d, Y g:i:s A",
-	            MonthDay: "F d",
-	            ShortTime: "g:i A",
-	            LongTime: "g:i:s A",
+	            ShortDate: "j/n/Y",
+	            LongDate: "l d. F Y",
+	            FullDateTime: "l d F Y G:i:s",
+	            MonthDay: "d. F",
+	            ShortTime: "G:i",
+	            LongTime: "G:i:s",
 	            SortableDateTime: "Y-m-d\\TH:i:s",
 	            UniversalSortableDateTime: "Y-m-d H:i:sO",
-	            YearMonth: "F, Y"
+	            YearMonth: "F Y"
 	        },
 	        reformatAfterEdit : false,
 			userLocalTime : false
@@ -179,4 +180,5 @@ $.jgrid.regional["el"] = {
 		reorder : "Move to reorder"
 	}
 };
+// DK
 }));

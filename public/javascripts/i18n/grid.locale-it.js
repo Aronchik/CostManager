@@ -1,129 +1,104 @@
-/**
- * jqGrid Italian Translation
-**/
-
-/*jslint white: true */
-/*global jQuery, module, require */
-(function (factory) {
+/*global jQuery, define */
+(function( factory ) {
 	"use strict";
-	if (typeof define === "function" && define.amd) {
+	if ( typeof define === "function" && define.amd ) {
 		// AMD. Register as an anonymous module.
-		define(["jquery"], factory);
-	} else if (typeof module === "object" && module.exports) {
-		// Node/CommonJS
-		module.exports = function (root, $) {
-			if ($ === undefined) {
-				// require("jquery") returns a factory that requires window to
-				// build a jQuery instance, we normalize how we use modules
-				// that require this pattern but the window provided is a noop
-				// if it's defined (how jquery works)
-				$ = typeof window !== "undefined" ?
-						require("jquery") :
-						require("jquery")(root || window);
-			}
-			factory($);
-			return $;
-		};
+		define([
+			"jquery",
+			"../grid.base"
+		], factory );
 	} else {
 		// Browser globals
-		factory(jQuery);
+		factory( jQuery );
 	}
-}(function ($) {
-"use strict";
-var locInfo = {
-	isRTL: false,
-	defaults: {
-		recordtext: "Visualizzati {0} - {1} di {2}",
-		emptyrecords: "Nessun record da visualizzare",
+}(function( $ ) {
+
+$.jgrid = $.jgrid || {};
+if(!$.jgrid.hasOwnProperty("regional")) {
+	$.jgrid.regional = [];
+}
+$.jgrid.regional["it"] = {
+	defaults : {
+		recordtext: "Mostra {0} - {1} di {2}",
+		emptyrecords: "Non ci sono record da mostrare",
 		loadtext: "Caricamento...",
-		pgtext: "Pagina {0} di {1}",
-		pgfirst: "First Page",
-		pglast: "Last Page",
-		pgnext: "Next Page",
-		pgprev: "Previous Page",
-		pgrecs: "Records per Page",
-		showhide: "Toggle Expand Collapse Grid",
-		savetext: "Salvataggio in corso..."
+		savetext: "Salvataggio...",
+		pgtext : "Pagina {0} di {1}",
+		pgfirst : "Prima Pagina",
+		pglast : "Ultima Pagina",
+		pgnext : "Pagina Successiva",
+		pgprev : "Pagina Precedente",
+		pgrecs : "Records per Pagina",
+		showhide: "Espandi o collassa griglia",
+		// mobile
+		pagerCaption : "Griglia::Impostazioni della pagina",
+		pageText : "Pagina:",
+		recordPage : "Records per Pagina",
+		nomorerecs : "Non ci sono altri record...",
+		scrollPullup: "Trascina verso l'alto per altri...",
+		scrollPulldown : "Trascina verso il basso per aggiornare...",
+		scrollRefresh : "Rilascia per aggiornare..."
 	},
-	search: {
-		caption: "Ricerca...",
-		Find: "Cerca",
-		Reset: "Pulisci",
-		odata: [
-			{ oper: "eq", text: "uguale" },
-			{ oper: "ne", text: "diverso" },
-			{ oper: "lt", text: "minore" },
-			{ oper: "le", text: "minore o uguale" },
-			{ oper: "gt", text: "maggiore" },
-			{ oper: "ge", text: "maggiore o uguale" },
-			{ oper: "bw", text: "inizia con" },
-			{ oper: "bn", text: "non inizia con" },
-			{ oper: "in", text: "in" },
-			{ oper: "ni", text: "non in" },
-			{ oper: "ew", text: "termina con" },
-			{ oper: "en", text: "non termina con" },
-			{ oper: "cn", text: "contiene" },
-			{ oper: "nc", text: "non contiene" },
-			{ oper: "nu", text: "is null" },
-			{ oper: "nn", text: "is not null" }
-		],
-		groupOps: [
-			{ op: "AND", text: "tutto" },
-			{ op: "OR", text: "almeno uno" }
-		],
-		addGroupTitle: "Add subgroup",
-		deleteGroupTitle: "Delete group",
-		addRuleTitle: "Add rule",
-		deleteRuleTitle: "Delete rule",
-		operandTitle: "Click to select search operation.",
-		resetTitle: "Reset Search Value"
+	search : {
+		caption: "Cerca...",
+		Find: "Trova",
+		Reset: "Reset",
+		odata: [{ oper:'eq', text:'uguale'},{ oper:'ne', text:'diverso'},{ oper:'lt', text:'minore'},{ oper:'le', text:'minore o uguale'},{ oper:'gt', text:'maggiore'},{ oper:'ge', text:'maggiore o uguale'},{ oper:'bw', text:'inizia per'},{ oper:'bn', text:'non inizia per'},{ oper:'in', text:'è in'},{ oper:'ni', text:'non è in'},{ oper:'ew', text:'finisce per'},{ oper:'en', text:'non finisce per'},{ oper:'cn', text:'contiene'},{ oper:'nc', text:'non contiene'},{ oper:'nu', text:'è null'},{ oper:'nn', text:'non è null'}, {oper:'bt', text:'between'}],
+		groupOps: [{ op: "AND", text: "tutti" },{ op: "OR",  text: "ciascuno" }],
+		operandTitle : "Clicca sull'opzione di ricerca scelta.",
+		resetTitle : "Resetta valori di ricerca",
+		addsubgrup : "Aggiungi Sottogruppo",
+		addrule : "Aggiungi Regola",
+		delgroup : "Cancella Sottogruppo",
+		delrule : "Cancella Regola"
 	},
-	edit: {
+	edit : {
 		addCaption: "Aggiungi Record",
 		editCaption: "Modifica Record",
 		bSubmit: "Invia",
-		bCancel: "Chiudi",
+		bCancel: "Annulla",
 		bClose: "Chiudi",
-		saveData: "Alcuni dati modificati! Salvare i cambiamenti?",
-		bYes: "Si",
-		bNo: "No",
-		bExit: "Esci",
+		saveData: "I dati sono stati modificati! Salvare le modifiche?",
+		bYes : "Si",
+		bNo : "No",
+		bExit : "Annulla",
 		msg: {
-			required: "Campo richiesto",
-			number: "Per favore, inserisci un valore valido",
-			minValue: "il valore deve essere maggiore o uguale a ",
-			maxValue: "il valore deve essere minore o uguale a",
-			email: "e-mail non corretta",
-			integer: "Per favore, inserisci un numero intero valido",
+			required:"Campo obbligatorio",
+			number:"Per favore, inserisci un numero valido",
+			minValue:"il valore deve essere maggiore o uguale a ",
+			maxValue:"il valore deve essere minore o uguale a ",
+			email: "non è una e-mail valida",
+			integer: "Per favore, inserisci un intero valido",
 			date: "Per favore, inserisci una data valida",
-			url: "URL non valido. Prefisso richiesto ('http://' or 'https://')",
-			nodefined: " non è definito!",
-			novalue: " valore di ritorno richiesto!",
-			customarray: "La function custon deve tornare un array!",
-			customfcheck: "La function custom deve esistere per il custom checking!"
+			url: "non è un URL valido. Prefissi richiesti ('http://' o 'https://')",
+			nodefined : " non è definito!",
+			novalue : " valore di ritorno richiesto!",
+			customarray : "La funzione personalizzata deve restituire un array!",
+			customfcheck : "La funzione personalizzata deve essere presente in caso di controlli personalizzati!"
+			
 		}
 	},
-	view: {
-		caption: "Visualizzazione Record",
+	view : {
+		caption: "Visualizza Record",
 		bClose: "Chiudi"
 	},
-	del: {
+	del : {
 		caption: "Cancella",
-		msg: "Cancellare record selezionato/i?",
+		msg: "Cancellare i record selezionati?",
 		bSubmit: "Cancella",
 		bCancel: "Annulla"
 	},
-	nav: {
+	nav : {
 		edittext: "",
-		edittitle: "Modifica record selezionato",
-		addtext: "",
-		addtitle: "Aggiungi nuovo record",
+		edittitle: "Modifica riga selezionata",
+		addtext:"",
+		addtitle: "Aggiungi riga",
 		deltext: "",
-		deltitle: "Cancella record selezionato",
+		deltitle: "Cancella riga",
 		searchtext: "",
-		searchtitle: "Ricerca record",
+		searchtitle: "Trova record",
 		refreshtext: "",
-		refreshtitle: "Aggiorna griglia",
+		refreshtitle: "Ricarica tabella",
 		alertcap: "Attenzione",
 		alerttext: "Per favore, seleziona un record",
 		viewtext: "",
@@ -131,59 +106,80 @@ var locInfo = {
 		savetext: "",
 		savetitle: "Salva riga",
 		canceltext: "",
-		canceltitle: "Annulla modifica riga"
+		canceltitle : "Annulla modifica riga",
+		selectcaption : "Azioni..."
 	},
-	col: {
-		caption: "Mostra/Nascondi Colonne",
-		bSubmit: "Invia",
+	col : {
+		caption: "Seleziona colonne",
+		bSubmit: "Ok",
 		bCancel: "Annulla"
 	},
-	errors: {
-		errcap: "Errore",
-		nourl: "Url non settata",
-		norecords: "Nessun record da elaborare",
-		model: "Lunghezza di colNames <> colModel!"
+	errors : {
+		errcap : "Errore",
+		nourl : "Nessun url impostato",
+		norecords: "Non ci sono record da elaborare",
+		model : "Lunghezza dei colNames <> colModel!"
 	},
-	formatter: {
-		integer: { thousandsSeparator: " ", defaultValue: "0" },
-		number: { decimalSeparator: ",", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: "0,00" },
-		currency: { decimalSeparator: ",", thousandsSeparator: " ", decimalPlaces: 2, prefix: "", suffix: "", defaultValue: "0,00" },
-		date: {
-			dayNames: ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
-			monthNames: [
-				"Gen", "Feb", "Mar", "Apr", "Mag", "Gui", "Lug", "Ago", "Set", "Ott", "Nov", "Dic",
-				"Genneio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Movembre", "Dicembre"],
-			AmPm: ["am", "pm", "AM", "PM"],
-			S: function (b) {
-				return b < 11 || b > 13 ? ["st", "nd", "rd", "th"][Math.min((b - 1) % 10, 3)] : "th";
+	formatter:{
+		integer:{ 
+			thousandsSeparator:".",
+			defaultValue:"0"
+		},
+		number:{
+			decimalSeparator:",",
+			thousandsSeparator:".",
+			decimalPlaces:2,
+			defaultValue:"0,00"
+		},
+		currency:{
+			decimalSeparator:",",
+			thousandsSeparator:".",
+			decimalPlaces:2,
+			prefix:"€ ",
+			suffix:"",
+			defaultValue:"0,00"
+		},
+		date:{
+			dayNames:["Dom","Lun","Mar","Mer","Gio","Ven","Sab","Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"],
+			monthNames:["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic","Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"],
+			AmPm:["am","pm","AM","PM"],
+			S:function(b){return b<11||b>13?["st","nd","rd","th"][Math.min((b-1)%10,3)]:"th"},
+			srcformat:"Y-m-d",
+			newformat:"d/m/Y",
+			parseRe : /[#%\\\/:_;.,\t\s-]/,
+			masks:{
+				ISO8601Long:"Y-m-d H:i:s",
+				ISO8601Short:"Y-m-d", 
+				ShortDate:"d/m/Y", 
+				LongDate:"l d F Y",
+				FullDateTime:"l d F Y G:i:s",
+				MonthDay:"F d",
+				ShortTime:"H:i",
+				LongTime:"H:i:s",
+				SortableDateTime:"Y-m-d\\TH:i:s",
+				UniversalSortableDateTime:"Y-m-d H:i:sO",
+				YearMonth:"F, Y"
 			},
-			srcformat: "Y-m-d",
-			newformat: "d/m/Y",
-			masks: {
-				ShortDate: "n/j/Y",
-				LongDate: "l, F d, Y",
-				FullDateTime: "l, F d, Y g:i:s A",
-				MonthDay: "F d",
-				ShortTime: "g:i A",
-				LongTime: "g:i:s A",
-				YearMonth: "F, Y"
-			}
-		}
+			reformatAfterEdit:false,
+			userLocalTime : false
+		},
+		baseLinkUrl:"",
+		showAction:"",
+		target:"",
+		checkbox:{ disabled:true},
+		idName:"id"
+	},
+	colmenu : {
+		sortasc : "Ordinamento Ascendente",
+		sortdesc : "Ordinamento Discendente",
+		columns : "Colonne",
+		filter : "Filtro",
+		grouping : "Raggruppa",
+		ungrouping : "Separa",
+		searchTitle : "Cerca righe con i valori:",
+		freeze : "Blocca",
+		unfreeze : "Sblocca",
+		reorder : "Sposta per riordinare"
 	}
 };
-$.jgrid = $.jgrid || {};
-$.extend(true, $.jgrid, {
-	defaults: {
-		locale: "it"
-	},
-	locales: {
-		// In general the property name is free, but it's recommended to use the names based on
-		// http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
-		// http://rishida.net/utils/subtags/ and RFC 5646. See Appendix A of RFC 5646 for examples.
-		// One can use the lang attribute to specify language tags in HTML, and the xml:lang attribute for XML
-		// if it exists. See http://www.w3.org/International/articles/language-tags/#extlang
-		it: $.extend({}, locInfo, { name: "italiano", nameEnglish: "Italian" }),
-		"it-IT": $.extend({}, locInfo, { name: "italiano (Italia)", nameEnglish: "Italian (Italy)" })
-	}
-});
 }));

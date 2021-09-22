@@ -1,11 +1,3 @@
-/**
- * jqGrid Indonesian Translation
- * Tony Tomov tony@trirand.com
- * http://trirand.com/blog/ 
- * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
-**/
 /*global jQuery, define */
 (function( factory ) {
 	"use strict";
@@ -25,121 +17,122 @@ $.jgrid = $.jgrid || {};
 if(!$.jgrid.hasOwnProperty("regional")) {
 	$.jgrid.regional = [];
 }
-$.jgrid.regional["id"] = {
+$.jgrid.regional["sq"] = {
 	defaults : {
-		recordtext: "Data {0} - {1} dari {2}",
-		emptyrecords: "Tidak ada data",
-		loadtext: "Memuat...",
-		pgtext : "Halaman {0} dari {1}",
-		savetext: "Saving...",
-		pgfirst : "First Page",
-		pglast : "Last Page",
-		pgnext : "Next Page",
-		pgprev : "Previous Page",
-		pgrecs : "Records per Page",
-		showhide: "Toggle Expand Collapse Grid",
+		recordtext: "Shfaq {0} - {1}/{2}",
+		emptyrecords: "Nuk ka rreshta për të shfaqur",
+		loadtext: "Duke u ngarkuar...",
+		savetext: "Duke ruajtur...",
+		pgtext : "Faqja {0}/{1}",
+		pgfirst : "Faqja e parë",
+		pglast : "Faqja e fundit",
+		pgnext : "Faqja tjetër",
+		pgprev : "Faqja mëparshme",
+		pgrecs : "Rreshta për faqe",
+		showhide: "Shpalos ose mbyll tabelën",
 		// mobile
-		pagerCaption : "Grid::Page Settings",
-		pageText : "Page:",
-		recordPage : "Records per Page",
-		nomorerecs : "No more records...",
-		scrollPullup: "Pull up to load more...",
-		scrollPulldown : "Pull down to refresh...",
-		scrollRefresh : "Release to refresh..."
+		pagerCaption : "Tabela::Kruskoti i faqes",
+		pageText : "Faqja:",
+		recordPage : "Rreshta për faqe",
+		nomorerecs : "Nuk ka rreshta të tjerë...",
+		scrollPullup: "Tërhiq për lart për të tjerë...",
+		scrollPulldown : "Tërqiq për poshtë për rifreskim...",
+		scrollRefresh : "Lësho për rifreskim..."
 	},
 	search : {
-		caption: "Pencarian",
-		Find: "Cari !",
-		Reset: "Segarkan",
-		odata: [{ oper:'eq', text:"sama dengan"},{ oper:'ne', text:"tidak sama dengan"},{ oper:'lt', text:"kurang dari"},{ oper:'le', text:"kurang dari atau sama dengan"},{ oper:'gt', text:"lebih besar"},{ oper:'ge', text:"lebih besar atau sama dengan"},{ oper:'bw', text:"dimulai dengan"},{ oper:'bn', text:"tidak dimulai dengan"},{ oper:'in', text:"di dalam"},{ oper:'ni', text:"tidak di dalam"},{ oper:'ew', text:"diakhiri dengan"},{ oper:'en', text:"tidak diakhiri dengan"},{ oper:'cn', text:"mengandung"},{ oper:'nc', text:"tidak mengandung"},{ oper:'nu', text:'is null'},{ oper:'nn', text:'is not null'}, {oper:'bt', text:'between'}],
-		groupOps: [	{ op: "AND", text: "all" },	{ op: "OR",  text: "any" }	],
-		operandTitle : "Click to select search operation.",
-		resetTitle : "Reset Search Value",
+		caption: "Kërko...",
+		Find: "Gjej",
+		Reset: "Pastro",
+		odata: [{ oper:'eq', text:'baraz'},{ oper:'ne', text:'jo baraz'},{ oper:'lt', text:'me e vogel'},{ oper:'le', text:'me e vogel ose baraz'},{ oper:'gt', text:'me e madhe'},{ oper:'ge', text:'me e madhe ose baraz'},{ oper:'bw', text:'fillon me'},{ oper:'bn', text:'nuk fillon me'},{ oper:'in', text:'brenda'},{ oper:'ni', text:'jo brenda'},{ oper:'ew', text:'mbaron me'},{ oper:'en', text:'nuk mbaron me'},{ oper:'cn', text:'permban'},{ oper:'nc', text:'nuk permban'},{ oper:'nu', text:'eshte bosh'},{ oper:'nn', text:'nuk eshte bosh'}, {oper:'bt', text:'between'}],
+		groupOps: [{ op: "AND", text: "te gjithe" },{ op: "OR",  text: "cfaredo" }],
+		operandTitle : "Kliko per te zgjedhur veprimin.",
+		resetTitle : "Fshi vlerat e kerkimit",
 		addsubgrup : "Add subgroup",
 		addrule : "Add rule",
 		delgroup : "Delete group",
 		delrule : "Delete rule"
+
 	},
 	edit : {
-		addCaption: "Tambah Data",
-		editCaption: "Sunting Data",
-		bSubmit: "Submit",
-		bCancel: "Tutup",
-		bClose: "Tutup",
-		saveData: "Data telah berubah! Simpan perubahan?",
-		bYes : "Ya",
-		bNo : "Tidak",
-		bExit : "Tutup",
+		addCaption: "Shto rresht",
+		editCaption: "Fshi rresht",
+		bSubmit: "Vendos",
+		bCancel: "Anullo",
+		bClose: "Mbyll",
+		saveData: "Te dhenat jane ndryshuar! Deshironi ti ruani ndryshimet?",
+		bYes : "Po",
+		bNo : "Jo",
+		bExit : "Anullo",
 		msg: {
-			required:"kolom wajib diisi",
-			number:"hanya nomer yang diperbolehkan",
-			minValue:"kolom harus lebih besar dari atau sama dengan",
-			maxValue:"kolom harus lebih kecil atau sama dengan",
-			email: "alamat e-mail tidak valid",
-			integer: "hanya nilai integer yang diperbolehkan",
-			date: "nilai tanggal tidak valid",
-			url: "Bukan URL yang valid. Harap gunakan ('http://' or 'https://')",
-			nodefined : " belum didefinisikan!",
-			novalue : " return value is required!",
-			customarray : "Custom function should return array!",
-			customfcheck : "Custom function should be present in case of custom checking!"
+			required:"Kjo fushe eshte e detyrueshme",
+			number:"Ju lutem, vendosni nje numer te vlefshem",
+			minValue:"vlera duhet te jete me e madhe ose e njejte me ",
+			maxValue:"vlera duhet te jete me e vogel ose e njejte me",
+			email: "nuk eshte adrese poste elektronike e vlefshme",
+			integer: "Ju lutem, vendosni nje numer te plote te vlefshem",
+			date: "Ju lutem, vendosni nje date te vlefshme",
+			url: "nuk eshte URL e vlefshme. Nevojitet prefiksi ('http://' ose 'https://')",
+			nodefined : " nuk eshte percaktuar!",
+			novalue : " vlera si pergjigje eshte e detyreshme!",
+			customarray : "Funksioni i personalizuar duhet te ktheje nje array!",
+			customfcheck : "unksioni i personalizuar duhet te egzistoje ne rast kontrolli te personalizuar!"
 			
 		}
 	},
 	view : {
-		caption: "Menampilkan data",
-		bClose: "Tutup"
+		caption: "Shfaq Rreshtin",
+		bClose: "Mbyll"
 	},
 	del : {
-		caption: "Hapus",
-		msg: "Hapus data terpilih?",
-		bSubmit: "Hapus",
-		bCancel: "Batalkan"
+		caption: "Fshi",
+		msg: "Deshironi te fshini rreshtin/rreshtat e zgjedhur?",
+		bSubmit: "Fshi",
+		bCancel: "Anullo"
 	},
 	nav : {
 		edittext: "",
-		edittitle: "Sunting data terpilih",
+		edittitle: "Modifiko rreshtin e zgjedhur",
 		addtext:"",
-		addtitle: "Tambah baris baru",
+		addtitle: "Shto rresht te ri",
 		deltext: "",
-		deltitle: "Hapus baris terpilih",
+		deltitle: "Fshi rreshtin e zgjedhur",
 		searchtext: "",
-		searchtitle: "Temukan data",
+		searchtitle: "Gjej rreshtat",
 		refreshtext: "",
-		refreshtitle: "Segarkan Grid",
-		alertcap: "Warning",
-		alerttext: "Harap pilih baris",
+		refreshtitle: "Ringarko listen",
+		alertcap: "Paralajmerim",
+		alerttext: "Ju lutem, zgjidh nje rresht",
 		viewtext: "",
-		viewtitle: "Tampilkan baris terpilih",
+		viewtitle: "Shfaq rreshtin e zgjedhur",
 		savetext: "",
-		savetitle: "Save row",
+		savetitle: "Ruaj rreshtin",
 		canceltext: "",
-		canceltitle : "Cancel row editing",
-		selectcaption : "Actions..."
+		canceltitle : "Anullo modifikim rreshti",
+		selectcaption : "Veprime..."
 	},
 	col : {
-		caption: "Pilih Kolom",
+		caption: "Zgjidh kolona",
 		bSubmit: "Ok",
-		bCancel: "Batal"
+		bCancel: "Anullo"
 	},
 	errors : {
-		errcap : "Error",
-		nourl : "Tidak ada url yang diset",
-		norecords: "Tidak ada data untuk diproses",
-		model : "Lebar dari colNames <> colModel!"
+		errcap : "Gabim",
+		nourl : "Nuk eshte percaktuar asnje URL",
+		norecords: "Nuk ka rreshta per perpunim",
+		model : "Gjatesia e emrit te kolones <> modeli i kolones!"
 	},
 	formatter : {
-		integer : {thousandsSeparator: ".", defaultValue: '0'},
-		number : {decimalSeparator:",", thousandsSeparator: ".", decimalPlaces: 2, defaultValue: '0'},
-		currency : {decimalSeparator:",", thousandsSeparator: ".", decimalPlaces: 2, prefix: "Rp. ", suffix:"", defaultValue: '0'},
+		integer : {thousandsSeparator: ",", defaultValue: '0'},
+		number : {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'},
+		currency : {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, prefix: "", suffix:"", defaultValue: '0.00'},
 		date : {
 			dayNames:   [
-				"Ming", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab",
-				"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+				"Dje", "Hën", "Mar", "Mër", "Enj", "Pre", "Sht",
+				"Djelë", "Hënë", "Martë", "Mërkurë", "Enjte", "Premte", "Shtunë"
 			],
 			monthNames: [
-				"Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des",
-				"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+				"Jan", "Shk", "Mar", "Pri", "Maj", "Qer", "Kor", "Gus", "Sht", "Tet", "Nën", "Dhj",
+				"Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
 			],
 			AmPm : ["am","pm","AM","PM"],
 			S: function (j) {return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] : 'th';},

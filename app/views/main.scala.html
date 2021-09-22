@@ -13,17 +13,24 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+@*        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">*@
+@*        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">*@
+@*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/jquery.jqgrid.src.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/grid.common.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/grid.formedit.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/grid.inlinedit.js")" type="text/javascript"></script>*@
+@*        <script src="@routes.Assets.versioned("javascripts/grid.celledit.js")" type="text/javascript"></script>*@
+        <script type="text/ecmascript" src="@routes.Assets.versioned("javascripts/jquery-1.11.0.min.js")"></script>
+        <script type="text/ecmascript" src="@routes.Assets.versioned("javascripts/jquery.jqGrid.min.js")"></script>
+        <script type="text/ecmascript" src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")"></script>
+        <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.26/build/pdfmake.min.js">	</script>
+        <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.26/build/vfs_fonts.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="@routes.Assets.versioned("javascripts/jquery.jqgrid.src.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/grid.common.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/grid.formedit.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/grid.inlinedit.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/grid.celledit.js")" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.versioned("stylesheets/ui.jqgrid.css")" />
         <script>
                 $(document).ready(function () {
                     $("#grid").jqGrid({
@@ -44,10 +51,10 @@
                         idPrefix: "e1_",
                         sortname: "expenseDate",
                         sortorder: "desc",
-                        pager: true,
-                        rowNum: 10,
+                        pager: 'gridPager',
+                        rowNum: 5,
                         loadonce: true
-                    });
+                    }).jqGrid('inlineNav','#gridPager',{add: false, edit: false, save: false, cancel: false});;
 
                     $("#addExpenseForm").submit(function(event) {
 
@@ -77,6 +84,21 @@
                             $('#result').text('failed');
                         });
                     });
+
+                    $("#export").on("click", function(){
+                        $("#grid").jqGrid("exportToPdf",{
+                            title: 'Expense Management APP',
+                            orientation: 'portrait',
+                            pageSize: 'A4',
+                            description: 'All of the expenses that have been entered into the system, are available in this PDF.',
+                            customSettings: null,
+                            download: 'download',
+                            includeLabels : true,
+                            includeGroupHeader : true,
+                            includeFooter: true,
+                            fileName : "All Expenses.pdf"
+                        });
+                    })
                 });
         </script>
     </head>
@@ -84,6 +106,8 @@
         @* And here's where we render the `Html` object containing
          * the page content. *@
         <table id="grid"></table>
+        <div id="gridPager"></div>
+        <button id="export">Export to PDF</button>
         <br><br><br><br>
         <h1>
             <b>Add Expense:</b>
@@ -119,6 +143,7 @@
             </div>
 
             <div id="result"></div>
+            <br>
         </form>
     </body>
 </html>
