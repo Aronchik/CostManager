@@ -17,10 +17,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="@routes.Assets.versioned("javascripts/jquery.jqgrid.src.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/grid.common.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/grid.formedit.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/grid.inlinedit.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/grid.celledit.js")" type="text/javascript"></script>
         <script>
@@ -43,11 +44,38 @@
                         idPrefix: "e1_",
                         sortname: "expenseDate",
                         sortorder: "desc",
+                        pager: true,
+                        rowNum: 10,
                         loadonce: true
                     });
 
-                    $("#addBtn").on( "click", function() {
-                        jQuery("#grid").jqGrid('editGridRow', "new", {height:280,reloadAfterSubmit:false} );
+                    $("#addExpenseForm").submit(function(event) {
+
+                        event.preventDefault();
+
+                        var $form = $(this),
+                                url = $form.attr('action');
+
+                        var dataToSend = {
+                            expenseDate: $('#expDate').val(),
+                            expense: $('#expense').val(),
+                            amount: $('#amount').val(),
+                            paymentType: $('#paymentType').val(),
+                            category: $('#category').val(),
+                            currency: $('#currency').val()
+                        }
+
+                        var posting = $.ajax({
+                            type: "POST",
+                            url: "/addExpenseFromClient/" + JSON.stringify(dataToSend)
+                        });
+
+                        posting.done(function(data) {
+                            $('#result').text('success');
+                        });
+                        posting.fail(function() {
+                            $('#result').text('failed');
+                        });
                     });
                 });
         </script>
@@ -56,6 +84,41 @@
         @* And here's where we render the `Html` object containing
          * the page content. *@
         <table id="grid"></table>
-        <button id="addBtn" type="button">Add Expense</button>
+        <br><br><br><br>
+        <h1>
+            <b>Add Expense:</b>
+        </h1>
+        <br>
+        <form id="addExpenseForm" title="" method="post">
+            <div>
+                <label class="title">Date:</label>
+                <input type="text" id="expDate" name="expDate">
+            </div>
+            <div>
+                <label class="title">Expense:</label>
+                <input type="text" id="expense" name="expense">
+            </div>
+            <div>
+                <label class="title">Amount:</label>
+                <input type="text" id="amount" name="amount">
+            </div>
+            <div>
+                <label class="title">Payment Type:</label>
+                <input type="text" id="paymentType" name="paymentType">
+            </div>
+            <div>
+                <label class="title">Category:</label>
+                <input type="text" id="category" name="category">
+            </div>
+            <div>
+                <label class="title">Currency:</label>
+                <input type="text" id="currency" name="currency">
+            </div>
+            <div>
+                <input type="submit" id="submitButton" name="submitButton" value="Submit">
+            </div>
+
+            <div id="result"></div>
+        </form>
     </body>
 </html>

@@ -12,5 +12,8 @@ GET     /message                    controllers.AsyncController.message
 
 GET     /expenses                   controllers.ExpensesDataController.expenses
 
++nocsrf
+POST    /addExpenseFromClient/*expenseJson    controllers.ExpensesDataController.addExpenseFromClient(expenseJson: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
