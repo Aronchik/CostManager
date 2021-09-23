@@ -10,8 +10,8 @@ import scala.io.Source
 
 @Singleton
 class ExpensesDataController @Inject() (cc: ControllerComponents) extends AbstractController(cc){
-  val file = "Expenses.json"
-  val formatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
+  private val file = "Expenses.json"
+  private val formatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
 
   /**
    * Create an Action to send the client side a JSON that contains all the relevant data that is stored in the file.
@@ -36,7 +36,7 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
    * This function opens the stored file on the system that contains the expenses Information
    * and returns it in a JSON format.
    */
-  def expenseData: JsValue = {
+  private def expenseData: JsValue = {
     val source = Source.fromFile(file)
     val data = try source.getLines.mkString finally source.close()
     Json.parse(data)
@@ -46,7 +46,7 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
    * save the current Expenses to a Json file
    * @param dataToSave - The current overall expenses we want to save
    */
-  def saveToJson(dataToSave: JsValue): Unit = {
+  private def saveToJson(dataToSave: JsValue): Unit = {
     val writer = new BufferedWriter(new FileWriter(file))
     writer.write(dataToSave.toString())
     writer.close()
@@ -56,7 +56,7 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
    * Add an expense to all the current expenses
    * @param expenseToAdd - The expense we want to add
    */
-  def addExpense(expenseToAdd: JsValue): Unit = {
+  private def addExpense(expenseToAdd: JsValue): Unit = {
     val newExpenses = expenseData.as[JsArray].append(expenseToAdd)
     saveToJson(newExpenses)
   }
@@ -76,9 +76,10 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
    * The function calculates the sum of all the expenses
    * @return the sum of all the expenses
    */
-  def sumAllExpenses: Double = {
+  private def sumAllExpenses: Double = {
     val data =  (expenseData \\ "amount").map(_.as[String])
     val expenses = data.flatMap(_.toDoubleOption)
+    println(expenses)
     expenses.sum
   }
 
@@ -86,7 +87,7 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
    * The function calculates the average of the expenses
    * @return the average of the expenses
    */
-  def averageExpenses: Double = {
+  private def averageExpenses: Double = {
     val length = expenseData.as[List[JsObject]].length
 
     // Precision to two decimal places
