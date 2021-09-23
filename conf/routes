@@ -10,14 +10,14 @@ GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
-GET     /expenses                   controllers.ExpensesDataController.expenses
+GET     /getExpenses                controllers.ExpensesDataController.getExpenses
 
 GET     /total                      controllers.ExpensesDataController.total
 
 GET     /average                    controllers.ExpensesDataController.average
 
 +nocsrf
-POST    /addExpenseFromClient/*expenseJson    controllers.ExpensesDataController.addExpenseFromClient(expenseJson: String)
+POST    /addExpense/*expenseJson    controllers.ExpensesDataController.addExpense(expenseJson: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
