@@ -12,6 +12,10 @@ GET     /message                    controllers.AsyncController.message
 
 GET     /expenses                   controllers.ExpensesDataController.expenses
 
+GET     /total                      controllers.ExpensesDataController.total
+
+GET     /average                    controllers.ExpensesDataController.average
+
 +nocsrf
 POST    /addExpenseFromClient/*expenseJson    controllers.ExpensesDataController.addExpenseFromClient(expenseJson: String)
 

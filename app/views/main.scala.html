@@ -1,9 +1,9 @@
 @*
- * This template is called from the `index` template. This template
- * handles the rendering of the page header and body tags. It takes
- * two arguments, a `String` for the title of the page and an `Html`
- * object to insert into the body of the page.
- *@
+* This template is called from the `index` template. This template
+* handles the rendering of the page header and body tags. It takes
+* two arguments, a `String` for the title of the page and an `Html`
+* object to insert into the body of the page.
+*@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
@@ -13,17 +13,17 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-@*        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">*@
-@*        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">*@
-@*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/jquery.jqgrid.src.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/grid.common.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/grid.formedit.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/grid.inlinedit.js")" type="text/javascript"></script>*@
-@*        <script src="@routes.Assets.versioned("javascripts/grid.celledit.js")" type="text/javascript"></script>*@
+        @*        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">*@
+        @*        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">*@
+        @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/jquery.jqgrid.src.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/grid.common.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/grid.formedit.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/jqmodal.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/jqdnr.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/grid.inlinedit.js")" type="text/javascript"></script>*@
+        @*        <script src="@routes.Assets.versioned("javascripts/grid.celledit.js")" type="text/javascript"></script>*@
         <script type="text/ecmascript" src="@routes.Assets.versioned("javascripts/jquery-1.11.0.min.js")"></script>
         <script type="text/ecmascript" src="@routes.Assets.versioned("javascripts/jquery.jqGrid.min.js")"></script>
         <script type="text/ecmascript" src="@routes.Assets.versioned("javascripts/i18n/grid.locale-en.js")"></script>
@@ -100,14 +100,30 @@
                         });
                     })
                 });
+
+                $.get("@routes.ExpensesDataController.total", function(data, status){
+                    $('#totalExpense').html('<b>Total: ' + data + '</b>');
+                });
+
+                $.get("@routes.ExpensesDataController.average", function(data, status){
+                    $('#averageExpense').html('<b>Average: ' + data + '</b>');
+                });
+
         </script>
     </head>
     <body>
         @* And here's where we render the `Html` object containing
-         * the page content. *@
+        * the page content. *@
         <table id="grid"></table>
         <div id="gridPager"></div>
         <button id="export">Export to PDF</button>
+        <br><br><br>
+        <div>
+            <label id="totalExpense" class="title"></label>
+        </div>
+        <div>
+            <label id="averageExpense" class="title"></label>
+        </div>
         <br><br><br><br>
         <h1>
             <b>Add Expense:</b>
