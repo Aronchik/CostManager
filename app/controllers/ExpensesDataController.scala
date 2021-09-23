@@ -90,7 +90,7 @@ class ExpensesDataController @Inject() (cc: ControllerComponents) extends Abstra
   private def averageExpenses: Double = {
     val length = expenseData.as[List[JsObject]].length
 
-    // Precision to two decimal places
+    // Changing precision to two decimal places
     (sumAllExpenses/length * 100).round / 100.toDouble
   }
 }
