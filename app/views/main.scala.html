@@ -60,7 +60,7 @@
 
                         var posting = $.ajax({
                             type: "POST",
-                            url: "/add/" + JSON.stringify(dataToSend)
+                            url: "/addExpense/" + JSON.stringify(dataToSend)
                         });
 
                         posting.done(function(data) {
@@ -107,6 +107,7 @@
         <div>
             <label id="totalExpense" class="title"></label>
         </div>
+        <br>
         <div>
             <label id="averageExpense" class="title"></label>
         </div>

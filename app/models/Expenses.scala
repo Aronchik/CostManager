@@ -3,10 +3,13 @@ package models
 import play.api.libs.json.{JsArray, JsObject, JsValue, Json}
 
 import java.io.{BufferedWriter, FileWriter}
+import java.text.NumberFormat
 import scala.io.Source
+
 
 class Expenses {
   private val file = "Expenses.json"
+  private val formatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
 
   /**
    * This function opens the stored file on the system that contains the expenses Information
@@ -16,6 +19,22 @@ class Expenses {
     val source = Source.fromFile(file)
     val data = try source.getLines.mkString finally source.close()
     Json.parse(data)
+  }
+
+  /**
+   * The function extracts the expense amounts from the JSON data file
+   * @return A collection of all the amounts, each amount is a double
+   */
+  private def extractAmounts: collection.Seq[Double] = {
+    (expenseData \\ "amount").map(_.as[String]).flatMap(_.toDoubleOption)
+  }
+
+  /**
+   * The function extracts the currencies from the JSON data file
+   * @return A collection of all the currencies, each currency is a string
+   */
+  private def extractCurrencies: collection.Seq[String] = {
+    (expenseData \\ "currency").map(_.as[String])
   }
 
   /**
@@ -39,24 +58,26 @@ class Expenses {
 
   /**
    * The function calculates the sum of all the expenses
-   * @return the sum of all the expenses
+   * @return A map that represents the sum of all the expenses for each currency.
    */
-  def sumAllExpenses: Double = {
-    val data =  (expenseData \\ "amount").map(_.as[String])
-    val expenses = data.flatMap(_.toDoubleOption)
-    println(expenses)
-    expenses.sum
+  def sumAllExpenses: Map[String, Double] = {
+    val expenseAmounts = extractAmounts
+    val currencies = extractCurrencies
+    val merged = expenseAmounts.zip(currencies).map { case (a, b) => (a,b) }
+    merged.groupBy(_._2).map { case (k,v) => k -> (v map (_._1)).sum }
   }
 
   /**
    * The function calculates the average of the expenses
    * @return the average of the expenses
    */
-  def averageExpenses: Double = {
-    val length = expenseData.as[List[JsObject]].length
+  def averageAllExpenses: Map[String, Double] = {
+    val expenseAmounts = sumAllExpenses
+    val currencies = extractCurrencies
+    val currenciesCount = currencies.groupBy(identity).map { case (v, l) => (v, l.size) }
 
-    // Changing precision to two decimal places
-    (sumAllExpenses/length * 100).round / 100.toDouble
+    // Precision is to 2 decimal places
+    currenciesCount.map { case (k, v) => (k, ((expenseAmounts.getOrElse(k, 1.0) / v) * 100).round / 100.toDouble)}
   }
 
   /**
@@ -68,5 +89,15 @@ class Expenses {
     val replaced = replacements.foldLeft(expenseToAdd) { (s, r) => r._1.replaceAllIn(s, r._2) }
     addExpense(Json.parse(replaced))
     expenseData
+  }
+
+  def sumOfExpenses: String = {
+    sumAllExpenses.map(_.productIterator.mkString(": "))
+      .mkString(" | ")
+  }
+
+  def averageOfExpenses: String = {
+    averageAllExpenses.map(_.productIterator.mkString(": "))
+      .mkString(" | ")
   }
 }
