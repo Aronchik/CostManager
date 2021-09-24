@@ -1,19 +1,17 @@
 package models
 
-import play.api.libs.json.{JsArray, JsObject, JsValue, Json}
+import play.api.libs.json.{JsArray, JsValue, Json}
 
 import java.io.{BufferedWriter, FileWriter}
-import java.text.NumberFormat
 import scala.io.Source
 
 
 class Expenses {
   private val file = "Expenses.json"
-  private val formatter: NumberFormat = java.text.NumberFormat.getIntegerInstance
 
   /**
-   * This function opens the stored file on the system that contains the expenses Information
-   * and returns it in a JSON format.
+   * This function opens the stored JSON file on the server that contains the expenses Information
+   * @return A JsValue that can be processed by the client side.
    */
   def expenseData: JsValue = {
     val source = Source.fromFile(file)
@@ -60,23 +58,29 @@ class Expenses {
    * The function calculates the sum of all the expenses
    * @return A map that represents the sum of all the expenses for each currency.
    */
-  def sumAllExpenses: Map[String, Double] = {
+  private def sumAllExpenses: Map[String, Double] = {
     val expenseAmounts = extractAmounts
     val currencies = extractCurrencies
+
+    // Merging the two collections into one so we can sum the values according to currencies
     val merged = expenseAmounts.zip(currencies).map { case (a, b) => (a,b) }
+
+    // Grouping by the currency and summing the values, returning a map of currency -> total
     merged.groupBy(_._2).map { case (k,v) => k -> (v map (_._1)).sum }
   }
 
   /**
    * The function calculates the average of the expenses
-   * @return the average of the expenses
+   * @return A map that represents the average of all the expenses for each currency.
    */
-  def averageAllExpenses: Map[String, Double] = {
+  private def averageAllExpenses: Map[String, Double] = {
     val expenseAmounts = sumAllExpenses
     val currencies = extractCurrencies
+
+    // Getting a count for how many times each currency is used.
     val currenciesCount = currencies.groupBy(identity).map { case (v, l) => (v, l.size) }
 
-    // Precision is to 2 decimal places
+    // Dividing the total amount for each currency by the times the currency is used. Precision is to 2 decimal places
     currenciesCount.map { case (k, v) => (k, ((expenseAmounts.getOrElse(k, 1.0) / v) * 100).round / 100.toDouble)}
   }
 
@@ -91,11 +95,19 @@ class Expenses {
     expenseData
   }
 
+  /**
+   * The function formats the total expenses calculation and returns it as a string.
+   * @return A string representing all currencies and their total expense.
+   */
   def sumOfExpenses: String = {
     sumAllExpenses.map(_.productIterator.mkString(": "))
       .mkString(" | ")
   }
 
+  /**
+   * The function formats the calculation of currency averages and returns it as a string.
+   * @return A string representing all currencies and their average expense.
+   */
   def averageOfExpenses: String = {
     averageAllExpenses.map(_.productIterator.mkString(": "))
       .mkString(" | ")
